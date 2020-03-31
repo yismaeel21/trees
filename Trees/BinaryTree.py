@@ -138,19 +138,31 @@ class BinaryTree():
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
-
+        if start:
+            traversal += (str(start.value) + "-")
+            traversal = self.preorder(start.left, traversal)
+            traversal = self.preorder(start.right, traversal)
+        return traversal
     def inorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
-
+        if start:
+            traversal = self.inorder(start.left, traversal)
+            traversal += (str(start.value) + "-")
+            traversal = self.inorder(start.right, traversal)
+        return traversal
     def postorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
-
+        if start:
+            traversal = self.postorder(start.left, traversal)
+            traversal = self.postorder(start.right, traversal)
+            traversal += (str(start.value) + "-")
+        return traversal
     def __len__(self):
         '''
         The lecture notes videos provide a recursive and an iterative version of a "size" function
