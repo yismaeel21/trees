@@ -234,7 +234,7 @@ class BinaryTree():
         return 1 + self.size_(node.left) + self.size_(node.right)
     
     def height(self):
-        return BinaryTree._height(self.root)
+        return BinaryTree.height(self.root)
 
     @staticmethod
     def _height(node):
