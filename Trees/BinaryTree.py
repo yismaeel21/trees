@@ -142,8 +142,8 @@ class BinaryTree():
             traversal += str(start.value) # + "-")
             traversal = self.preorder(start.left, traversal)
             traversal = self.preorder(start.right, traversal)
-        for x in traversal:
-            x = int(x)
+        for i in range(len(traversal)):
+            traversal[i] = int(traversal[i])
         return traversal
     def inorder(self, start, traversal):
         '''
