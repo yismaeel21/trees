@@ -215,7 +215,7 @@ class BinaryTree():
         size = 1
         while stack:
             node = stack.pop()
-           if node.left:
+            if node.left:
                 size += 1
                 stack.push(node.left)
             if node.right:
