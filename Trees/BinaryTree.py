@@ -234,7 +234,7 @@ class BinaryTree():
         return 1 + self.size_(node.left) + self.size_(node.right)
     
     def height(self):
-        return BinaryTree.height(self.root)
+        return BinaryTree._height(self.root)
 
     @staticmethod
     def _height(node):
@@ -250,7 +250,7 @@ class BinaryTree():
         '''
         if node is None:
             return -1
-        left_height = node._height(node.left)
-        right_height = node._height(node.right)
+        left_height = node.left._height()
+        right_height = node.right._height()
 
         return 1 + max(left_height, right_height)
