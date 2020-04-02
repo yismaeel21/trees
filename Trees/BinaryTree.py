@@ -207,22 +207,22 @@ class BinaryTree():
         Implement this function. 
         The lecture notes videos provide the exact code you need.
         '''
-        #if self.root is None:
-        #    return 0
+        if self.root is None:
+            return 0
 
-        #stack = Stack()
-        #stack.push(self.root)
-        #size = 1
-        #while stack:
-        #    node = stack.pop()
-        #    if node.left:
-        #        size += 1
-        #        stack.push(node.left)
-        #    if node.right:
-        #        size += 1
-        #        stack.push(node.right)
-        #return
-        return len(self.items)
+        stack = Stack()
+        stack.push(self.root)
+        size = 1
+        while stack:
+            node = stack.pop()
+           if node.left:
+                size += 1
+                stack.push(node.left)
+            if node.right:
+                size += 1
+                stack.push(node.right)
+        return size
+        
     def size_(self, node):
         '''
         FIXME:
