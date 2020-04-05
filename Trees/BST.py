@@ -83,18 +83,18 @@ class BST():
     @staticmethod
     def _insert(value, node):
         '''
-        FIXME:
+        FIXME: 
         Implement this function.
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
         if value < node.value:
-            if node.left == None:
+            if node.left is None:
                 node.left = Node(value)
             else:
                 BST._insert(value, node.left)
         elif value > node.value:
-            if node.right == None:
+            if node.right is None:
                 node.right = Node(value)
             else:
                 BST._insert(value, node.right)
