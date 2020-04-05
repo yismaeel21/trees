@@ -75,7 +75,7 @@ class BST():
         Inserts value into the BST.
         '''
         if self.root is None:
-            self.root = node.value
+            self.root = Node(value)
         else:
             BST._insert(value, self.root)
 
@@ -90,16 +90,16 @@ class BST():
         '''
         if value < node.value:
             if node.left is None:
-                node.left = node.value
+                node.left = Node(value)
             else:
                 BST._insert(value, node.left)
         elif value > node.value:
             if node.right is None:
-                node.right = node.value
+                node.right = Node(value)
             else:
                 BST._insert(value, node.right)
         else:
-            print("value is already present in tree")
+            print("value is already in the tree")
 
     def insert_list(self, xs):
         '''
@@ -160,7 +160,7 @@ class BST():
 
     @staticmethod
     def _find_smallest(node):
-        if node.left == None:
+        if node.left is None:
             return node.value
         else:
             return BST._find_smallest(node.left)
@@ -180,7 +180,7 @@ class BST():
     
     @staticmethod
     def _find_largest(node):
-        if node.right == None:
+        if node.right is None:
             return node.value
         else:
             return BST._find_largest(node.right)
