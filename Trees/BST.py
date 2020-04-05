@@ -99,7 +99,7 @@ class BST():
             else:
                 BST._insert(value, node.right)
         else:
-            print("this value is already in the tree")
+            print("value is already present in tree")
 
     def insert_list(self, xs):
         '''
@@ -203,25 +203,31 @@ class BST():
         Use a recursive helper function.
         '''
         self.root = BST._remove(self.root,value)
-        return BST._remove(self.root,value)
+        
     @staticmethod
     def _remove(node,value):
         if not node:
             return Node
+        
         if node.value > value:
             node.left = BST._remove(node.left,value)
+            
         elif node.value < value:
             node.right = BST._remove(node.right, value)
+       
         else:
             if not node.right:
                 return node.left
+            
             if not node.left:
                 return node.right
-            faux = node.right
-            while faux.left:
-                faux = faux.left
+            
+            lol = node.right
+            
+            while lol.left:
+                lol = lol.left
 
-            node.value = faux.value
+            node.value = lol.value
             node.right = BST._remove(node.right, node.value)
         
         return node
