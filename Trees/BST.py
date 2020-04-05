@@ -99,7 +99,7 @@ class BST():
             else:
                 BST._insert(value, node.right)
         else:
-            print("value is already in the tree")
+            print("value is already present in tree")
 
     def insert_list(self, xs):
         '''
