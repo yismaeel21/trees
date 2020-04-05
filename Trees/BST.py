@@ -19,7 +19,9 @@ class BST():
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the BST.
         '''
-
+        self.root = None
+        if xs:
+            self.insert_list(xs)
 
     def __repr__(self):
         '''
@@ -58,7 +60,15 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
+        left_valid = True
+        right_valid = True
+        
+        if node.left:
+            left_valid = node.value > node.left.value and BST._is_bst_satisfied(node.left)
+        if node.right:
+            right_valid  node.value < node.right.value and BST._is_bst_satisfied(node.right)
+            
+        return left_valid and right_valid
 
     def insert(self, value):
         '''
@@ -78,7 +88,18 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
+        if value < node.value:
+            if node.left == None:
+                node.left = Node(value)
+            else:
+                BST._insert(value, node.left)
+        elif value > node.value:
+            if node.right == None:
+                node.right = Node(value)
+            else:
+                BST._insert(value, node.right)
+        else:
+            print("this value is already in the tree")
 
     def insert_list(self, xs):
         '''
@@ -87,8 +108,9 @@ class BST():
         FIXME:
         Implement this function.
         '''
-
-
+        for i in xs:
+            self.insert(i)
+        
     def __contains__(self, value):
         return self.find(value)
 
@@ -112,7 +134,12 @@ class BST():
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
+        if value > node.value and node.right:
+            return BST._find(value, node.right)
+        elif value < node.value and node.left:
+            return BST._find(value, node.left)
+        if value == node.value:
+            return True
 
     def find_smallest(self):
         '''
@@ -127,7 +154,16 @@ class BST():
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
+        if self.root:
+            return BST._find_smallest(self.root)
+        return None
 
+    @staticmethod
+    def _find_smallest(node):
+        if node.left == None:
+            return node.value
+        else:
+            return BST._find_smallest(node.left)
 
     def find_largest(self):
         '''
@@ -138,7 +174,16 @@ class BST():
         This function is not implemented in the lecture notes,
         but if you understand the structure of a BST it should be easy to implement.
         '''
-
+        if self.root:
+            return BST._find_largest(self.root)
+        return None
+    
+    @staticmethod
+    def _find_largest(node):
+        if node.right == None:
+            return node.value
+        else:
+            return BST._find_largest(node.right)
 
     def remove(self,value):
         '''
@@ -158,7 +203,29 @@ class BST():
         Use a recursive helper function.
         '''
         self.root = BST._remove(self.root,value)
+        
+    @staticmethod
+    def _remove(node,value):
+        if not node:
+            return Node
+        if node.value > value:
+            node.left = BST._remove(node.left,value)
+        elif node.value < value:
+            node.right = BST._remove(node.right, value)
+        else:
+            if not node.right:
+                return node.left
+            if not node.left:
+                return node.right
+            faux = node.right
+            while faux.left:
+                faux = faux.left
 
+            node.value = faux.value
+            node.right = BST._remove(node.right, node.value)
+        
+        return node
+    
 
     def remove_list(self, xs):
         '''
@@ -167,3 +234,5 @@ class BST():
         FIXME:
         Implement this function.
         '''
+        for x in xs:
+            self.remove(x)
