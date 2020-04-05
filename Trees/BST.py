@@ -203,7 +203,6 @@ class BST(BinaryTree):
         Use a recursive helper function.
         '''
         self.root = BST._remove(self.root,value)
-        return BST._remove(self.root, value)
         
     @staticmethod
     def _remove(node,value):
