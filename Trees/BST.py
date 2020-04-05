@@ -75,7 +75,7 @@ class BST():
         Inserts value into the BST.
         '''
         if self.root is None:
-            self.root = Node(value)
+            self.root = node.value
         else:
             BST._insert(value, self.root)
 
@@ -90,12 +90,12 @@ class BST():
         '''
         if value < node.value:
             if node.left is None:
-                node.left = Node(value)
+                node.left = node.value
             else:
                 BST._insert(value, node.left)
         elif value > node.value:
             if node.right is None:
-                node.right = Node(value)
+                node.right = node.value
             else:
                 BST._insert(value, node.right)
         else:
