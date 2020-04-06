@@ -208,7 +208,7 @@ class BST(BinaryTree):
     @staticmethod
     def _remove(node,value):
         if not node:
-            return Node
+            return node
         
         if node.value > value:
             node.left = BST._remove(node.left,value)
