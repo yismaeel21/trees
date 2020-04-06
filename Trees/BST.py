@@ -202,6 +202,7 @@ class BST(BinaryTree):
         HINT:
         Use a recursive helper function.
         '''
+        print ("12222=" , BST._remove(self.root, value))
         self.root = BST._remove(self.root,value)
         
     @staticmethod
@@ -222,12 +223,12 @@ class BST(BinaryTree):
             if not node.left:
                 return node.right
             
-            lol = node.right
+            temp_code = node.right
             
-            while lol.left:
-                lol = lol.left
+            while temp_code.left:
+                temp_code = temp_code.left
 
-            node.value = lol.value
+            node.value = temp_code.value
             node.right = BST._remove(node.right, node.value)
         
         return node
