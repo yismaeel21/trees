@@ -202,11 +202,11 @@ class BST(BinaryTree):
         HINT:
         Use a recursive helper function.
         '''
-        #print ("12222=" , BST._remove(self.root, value))
         self.root = BST._remove(self.root,value)
         
     @staticmethod
     def _remove(node,value):
+        ''' This code wouldnt work for the longest period of time, turns out I was returning Node instead of node'''
         if not node:
             return node
         
