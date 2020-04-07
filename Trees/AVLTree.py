@@ -19,7 +19,9 @@ class AVLTree():
         FIXME:
         Implement this function.
         '''
-
+        self.root = None
+        if xs:
+            self.insert_list(xs)
 
     def balance_factor(self):
         '''
@@ -49,7 +51,11 @@ class AVLTree():
         FIXME:
         Implement this function.
         '''
-
+        if _balance_factor(node) in [-1,0,1]:
+            return True
+        else:
+            return False
+        
 
     @staticmethod
     def _left_rotate(node):
