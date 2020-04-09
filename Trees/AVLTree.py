@@ -174,7 +174,7 @@ class AVLTree(BST):
             
         #All was well and dandy but this would not give me a balanced AVL tree so i have to balance within the insert helper function
         if AVLTree._is_avl_satisfied(node) == False:  #only do this if we are not balanced
-            node.left = AVLTree._rebalanceNode(node.left). #rebalance the left node
+            node.left = AVLTree._rebalanceNode(node.left) #rebalance the left node
             node.right = AVLTree._rebalanceNode(node.right) #rebalance the right node
             return AVLTree._rebalanceNode(node)     #return the whole balanced node
         else:
