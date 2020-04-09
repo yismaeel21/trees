@@ -69,7 +69,7 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
         if node is None or node.right is None:
-            return Node
+            return node
         
         node1 = Node(node.right.value)
         node1.right = node.right.right
@@ -95,7 +95,7 @@ class AVLTree(BST):
         however, so you will have to adapt their code.
         '''
         if node is None or node.left is None:
-            return Node
+            return node
         
         node1 = Node(node.left.value)
         node1.left = node.left.left
@@ -151,7 +151,7 @@ class AVLTree(BST):
                 return AVLTree._left_rotate(node)
             else:
                 return AVLTree._left_rotate(node)
-        return node
+        else: return node
   
 
     
@@ -172,7 +172,7 @@ class AVLTree(BST):
         else:
             print("Already in the tree")
             
-       #All was well and dandy but this would not give me a balanced AVL tree so i have to balance within the insert helper function
+        #All was well and dandy but this would not give me a balanced AVL tree so i have to balance within the insert helper function
         if AVLTree._is_avl_satisfied(node) == False:  #only do this if we are not balanced
             node.left = AVLTree._rebalanceNode(node.left). #rebalance the left node
             node.right = AVLTree._rebalanceNode(node.right) #rebalance the right node
