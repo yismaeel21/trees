@@ -1,4 +1,5 @@
 '''
+Name: Yusuf Ismaeel
 This file implements the AVL Tree data structure.
 The functions in this file are considerably harder than the functions in the BinaryTree and BST files.
 '''
@@ -52,7 +53,7 @@ class AVLTree(BST):
         Implement this function.
         '''
         if node is None:
-            return 0
+            return True
         return AVLTree._balance_factor(node) in [-1,0,1] and AVLTree._is_avl_satisfied(node.left) and AVLTree._is_avl_satisfied(node.right)
         
         
