@@ -108,7 +108,9 @@ class AVLTree(BST):
         
         return node1
         
-
+    def insert_list(self,xs):
+        for i in xs:
+            self.insert(i)
     def insert(self, value):
         '''
         FIXME:
