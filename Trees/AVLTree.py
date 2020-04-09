@@ -137,8 +137,9 @@ class AVLTree(BST):
     @staticmethod
     def _rebalanceNode(node):
         ''' 
-        I got the pseudocode for the balancing function from https://gist.github.com/girish3/a8e3931154af4da89995
-        but then i had to adjust it to work for my code. 
+        I got the idea and logic for the pseudocode for this balancing function from https://gist.github.com/girish3/a8e3931154af4da89995 and
+        https://runestone.academy/runestone/books/published/pythonds/Trees/AVLTreeImplementation.html
+        but then i had to adjust both so that they work for the way I'm coding it. 
         '''
         if AVLTree._balance_factor(node) > 1:
             if AVLTree._balance_factor(node.left)<0:
