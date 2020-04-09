@@ -130,8 +130,35 @@ class AVLTree(BST):
             self.root = Node(value)
         else:
             self.root = AVLTree._insert(value,self.root)
+
+       
+    
+    @staticmethod
+    def _rebalanceNode(node):
+        ''' 
+        I got the pseudocode for the balancing function from https://gist.github.com/girish3/a8e3931154af4da89995
+        but then i had to adjust it to work for my code. 
+        '''
+        if AVLTree._balance_factor(node) > 1:
+            if AVLTree._balance_factor(node.left)<0:
+                node.left = AVLTree._left_rotate(node.left)
+                return AVLTree._right_rotate(node)
+            else:
+                return AVLTree._right_rotate(node)
+        elif AVLTree._balance_factor(node) < -1:
+            if AVLTree._balance_factor(node.right) > 0:
+                node.right = AVLTree._right_rotate(node.right)
+                return AVLTree._left_rotate(node)
+            else:
+                return AVLTree._left_rotate(node)
+        return node
+  
+
+    
     @staticmethod
     def _insert(value,node):
+        '''This code follows essentially the same logic as the BST insert helper function but for this one i needed to rebalance my nodes
+        Therefore, I created the helper function above to rebalance my nodes'''
         if value < node.value:
             if node.left is None:
                 node.left = Node(value)
@@ -144,3 +171,11 @@ class AVLTree(BST):
                 AVLTree._insert(value,node.right)
         else:
             print("Already in the tree")
+            
+       #All was well and dandy but this would not give me a balanced AVL tree so i have to balance within the insert helper function
+        if AVLTree._is_avl_satisfied(node) == False:  #only do this if we are not balanced
+            node.left = AVLTree._rebalanceNode(node.left). #rebalance the left node
+            node.right = AVLTree._rebalanceNode(node.right) #rebalance the right node
+            return AVLTree._rebalanceNode(node)     #return the whole balanced node
+        else:
+            return node
