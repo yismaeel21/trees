@@ -110,8 +110,8 @@ class AVLTree(BST):
         return node1
         
     def insert_list(self,xs):
-        for i in xs:
-            self.insert(i)
+        for item in xs:
+            self.insert(item)
     def insert(self, value):
         '''
         FIXME:
@@ -135,7 +135,7 @@ class AVLTree(BST):
        
     
     @staticmethod
-    def _rebalanceNode(node):
+    def updateBalance(node):
         ''' 
         I got the idea and logic for the pseudocode for this balancing function from https://gist.github.com/girish3/a8e3931154af4da89995 and
         https://runestone.academy/runestone/books/published/pythonds/Trees/AVLTreeImplementation.html
@@ -176,8 +176,8 @@ class AVLTree(BST):
             
         #All was well and dandy but this would not give me a balanced AVL tree so i have to balance within the insert helper function
         if AVLTree._is_avl_satisfied(node) == False:  #only do this if we are not balanced
-            node.left = AVLTree._rebalanceNode(node.left) #rebalance the left node
-            node.right = AVLTree._rebalanceNode(node.right) #rebalance the right node
-            return AVLTree._rebalanceNode(node)     #return the whole balanced node
+            node.left = AVLTree.updateBalance(node.left) #rebalance the left node
+            node.right = AVLTree.updateBalance(node.right) #rebalance the right node
+            return AVLTree.updateBalance(node)     #return the whole balanced node
         else:
             return node
