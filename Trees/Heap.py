@@ -58,8 +58,13 @@ class Heap(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-
-
+        if node is None or (node.left is None and node.right is None):
+            return True
+        if node.right is None:
+            return node.value <= node.left.value
+        if node.value <= node.left.value and node.value <= node.right.value:
+            return Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
+        
     def insert(self, value):
         '''
         Inserts value into the heap.
@@ -86,7 +91,8 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
-
+        for elem in xs:
+            self.insert(xs)
 
     def find_smallest(self):
         '''
@@ -101,7 +107,8 @@ class Heap(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-
+        if Heap.is_heap_satisfied(self):
+            return self.root.value
 
     def remove_min(self):
         '''
