@@ -111,7 +111,7 @@ class Heap(BinaryTree):
         ourStack.append(node)
         size = 1
         while ourStack:
-            node = ourstack.pop()
+            node = ourStack.pop()
             if node.left:
                 size +=1
                 ourStack.append(node.left)
