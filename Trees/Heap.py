@@ -91,7 +91,10 @@ class Heap(BinaryTree):
         else:
             leftSize = Heap.size(node.left)
             rightSize = Heap.size(node.right)
-            node1 = node.left if leftSize <= rightSize else node.right
+            if leftSize <= rightSize: 
+                node1 = node.left  
+            else: 
+                node.right
             node1 = Heap._insert(value,node1)
 
         if node.value > node1.value:
