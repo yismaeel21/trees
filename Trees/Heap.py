@@ -82,8 +82,41 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if node.left is None:
+            node1 = Node(value)
+            node.left = node1
+        elif node.right is None:
+            node1 = Node(value)
+            node.right = node1
+        else:
+            leftSize = Heap.size(node.left)
+            rightSize = Heap.size(node.right)
+            node1 = node.left if leftSize <= righSize else node.right:
+            node1 = Heap._insert(value,node1)
 
+        if node.value > node1.value:
+            arg = node1.value
+            node.value = arg
+        return node
 
+    
+    @staticmethod
+    def size(self):
+        if self.root is None:
+            return 0
+        ourStack = [self.root]
+        size = 1
+        while ourStack:
+            node = stack.pop
+            if node.left:
+                size +=1
+                ourStack.append(node.left)
+            if node.right:
+                size += 1
+                ourStack.append(node.right)
+        return size
+
+               
     def insert_list(self, xs):
         '''
         Given a list xs, insert each element of xs into self.
