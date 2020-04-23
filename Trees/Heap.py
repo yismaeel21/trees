@@ -104,7 +104,7 @@ class Heap(BinaryTree):
 
     
     @staticmethod
-    def size(self):
+    def size(node):
         if node is None:
             return 0
         ourStack = []
