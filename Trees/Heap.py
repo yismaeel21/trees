@@ -156,3 +156,7 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+    def switch(node1,node2):
+        arg = node2.value
+        node2.value = node1.value
+        node1.value = arg
