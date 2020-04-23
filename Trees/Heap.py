@@ -105,12 +105,13 @@ class Heap(BinaryTree):
     
     @staticmethod
     def size(self):
-        if self.root is None:
+        if node is None:
             return 0
-        ourStack = [self.root]
+        ourStack = []
+        ourStack.append(node)
         size = 1
         while ourStack:
-            node = stack.pop
+            node = stack.pop()
             if node.left:
                 size +=1
                 ourStack.append(node.left)
