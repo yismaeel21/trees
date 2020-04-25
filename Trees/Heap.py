@@ -17,10 +17,9 @@ class Heap(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
-        super().__init__()
+        self.root = None
         if xs:
-            for elem in xs:
-                self.insert(elem)
+            self.insert_list(xs)
     
     def __repr__(self):
         '''
@@ -83,11 +82,9 @@ class Heap(BinaryTree):
         Implement this function.
         '''
         if node.left is None:
-            node1 = Node(value)
-            node.left = node1
+            node.left = Node(value)
         elif node.right is None:
-            node1 = Node(value)
-            node.right = node1
+            node.right = Node(value)
         else:
             leftSize = Heap.size(node.left)
             rightSize = Heap.size(node.right)
