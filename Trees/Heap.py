@@ -1,6 +1,3 @@
-'''
-'''
-
 from Trees.BinaryTree import BinaryTree, Node
 
 class Heap(BinaryTree):
@@ -30,7 +27,6 @@ class Heap(BinaryTree):
         Recall that the __repr__ function should return a string that can be used to recreate a valid instance of the class.
         Thus, if you create a variable using the command Heap([1,2,3])
         it's __repr__ will return "Heap([1,2,3])"
-
         For the Heap, type(self).__name__ will be the string "Heap",
         but for the AVLTree, this expression will be "AVLTree".
         Using this expression ensures that all subclasses of Heap will have a correct implementation of __repr__,
@@ -125,7 +121,6 @@ class Heap(BinaryTree):
     def insert_list(self, xs):
         '''
         Given a list xs, insert each element of xs into self.
-
         FIXME:
         Implement this function.
         '''
@@ -135,12 +130,10 @@ class Heap(BinaryTree):
     def find_smallest(self):
         '''
         Returns the smallest value in the tree.
-
         FIXME:
         Implement this function.
         This function is not implemented in the lecture notes,
         but if you understand the structure of a Heap it should be easy to implement.
-
         HINT:
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
@@ -160,7 +153,6 @@ class Heap(BinaryTree):
         '''
         Removes the minimum value from the Heap. 
         If the heap is empty, it does nothing.
-
         FIXME:
         Implement this function.
         '''
@@ -168,7 +160,7 @@ class Heap(BinaryTree):
         
 
     @staticmethod
-    def switch(node1,node2):
+    def replace(node1,node2):
         arg = node2.value
         node2.value = node1.value
         node1.value = arg
@@ -179,26 +171,25 @@ class Heap(BinaryTree):
         branch = node
         if branch:
             
-            if branch.left and branch.right is None:
+            if branch.left is None and branch.right is None:
                 if branch.left.value < branch.value:
-                    Heap.switch(branch, branch.left)
-            branch = branch.left
+                    Heap.replace(branch, branch.left)
+                branch = branch.left
             
             elif branch.left and branch.right:
                 minima = min(branch.left.value, branch.right.value)
                 
                 if minima == branch.left.value:
                     if minima < branch.value:
-                        Heap.switch(branch, branch.left)
+                        Heap.replace(branch, branch.left)
                     branch = branch.left
                  
                 else:
                     if minimum > branch.value:
-                        Heap.switch(branch, branch.right)
+                        Heap.replace(branch, branch.right)
                     branch = branch.right
                     
             elif : 
                 return
             
             return Heap._trickle_down(branch)
-                           
