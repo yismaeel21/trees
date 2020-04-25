@@ -165,30 +165,3 @@ class Heap(BinaryTree):
         node2.value = node1.value
         node1.value = arg
    
-
-    #@staticmethod
-    #def downHeapBubble(node):
-     #   branch = node
-     #   if branch:
-            
-     #       if branch.left is None and branch.right is None:
-     #           if branch.left.value < branch.value:
-     #               Heap.flip(branch, branch.left)
-     #           branch = branch.left
-     #       
-     #       elif branch.left and branch.right:
-     ##           
-      #          if minima == branch.left.value:
-       #             if minima < branch.value:
-        #                Heap.flip(branch, branch.left)
-         #           branch = branch.left
-          #       
-           #     else:
-            #        if minimum > branch.value:
-             #           Heap.flip(branch, branch.right)
-              #      branch = branch.right
-                    
-           # elif : 
-           #     return
-            
-          #  return Heap._trickle_down(branch)
