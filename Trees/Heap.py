@@ -14,10 +14,9 @@ class Heap(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
-        super().__init__()
+        self.root = None
         if xs:
-            for elem in xs:
-                self.insert(elem)
+                self.insert_list(elem)
     
     def __repr__(self):
         '''
@@ -156,11 +155,12 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        
+        Heap.remove(Heap._find_smallest(self))
+            
         
 
     @staticmethod
-    def replace(node1,node2):
+    def flip(node1,node2):
         arg = node2.value
         node2.value = node1.value
         node1.value = arg
@@ -173,7 +173,7 @@ class Heap(BinaryTree):
             
             if branch.left is None and branch.right is None:
                 if branch.left.value < branch.value:
-                    Heap.replace(branch, branch.left)
+                    Heap.flip(branch, branch.left)
                 branch = branch.left
             
             elif branch.left and branch.right:
@@ -181,12 +181,12 @@ class Heap(BinaryTree):
                 
                 if minima == branch.left.value:
                     if minima < branch.value:
-                        Heap.replace(branch, branch.left)
+                        Heap.flip(branch, branch.left)
                     branch = branch.left
                  
                 else:
                     if minimum > branch.value:
-                        Heap.replace(branch, branch.right)
+                        Heap.flip(branch, branch.right)
                     branch = branch.right
                     
             elif : 
