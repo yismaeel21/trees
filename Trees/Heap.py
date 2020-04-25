@@ -155,25 +155,4 @@ class Heap(BinaryTree):
         arg = node2.value
         node2.value = node1.value
         node1.value = arg
-    
-    def _trickle_down(node):
-        branch = node
-        if branch:
-            if branch.left and branch.right is None:
-                if branch.left.value < branch.value:
-                    Heap.switch(branch, branch.left)
-            branch = branch.left
-            elif branch.left and branch.right:
-                minimum = min(branch.left.value, branch.right.value)
-                if minimum == branch.left.value:
-                    if minimum < branch.value:
-                        Heap.switch(branch, branch.left)
-                    branch = branch.left
-                 else:
-                    if minimum > branch.value:
-                        Heap.switch(branch, branch.right)
-                    branch = branch.right
-                    
-            else: 
-                return
-            return Heap._trickle_down(branch)
+
