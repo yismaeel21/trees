@@ -1,3 +1,6 @@
+'''
+'''
+
 from Trees.BinaryTree import BinaryTree, Node
 
 class Heap(BinaryTree):
@@ -14,9 +17,10 @@ class Heap(BinaryTree):
         If xs is a list (i.e. xs is not None),
         then each element of xs needs to be inserted into the Heap.
         '''
-        self.root = None
+        super().__init__()
         if xs:
-                self.insert_list(elem)
+            for elem in xs:
+                self.insert(elem)
     
     def __repr__(self):
         '''
@@ -137,17 +141,9 @@ class Heap(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-        #if Heap.is_heap_satisfied(self):   without helper function
-            #return self.root.value
-    
-        #with helper function
-        return Heap._find_smallest(self.root)
-    @staticmethod
-    def _find_smallest(node):
-        if node is None:
-            return
-        else:
-            return node.value
+        if Heap.is_heap_satisfied(self):
+            return self.root.value
+
     def remove_min(self):
         '''
         Removes the minimum value from the Heap. 
@@ -155,13 +151,29 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        Heap.remove(Heap._find_smallest(self))
-            
-        
-
-    @staticmethod
-    def flip(node1,node2):
+    def switch(node1,node2):
         arg = node2.value
         node2.value = node1.value
         node1.value = arg
-   
+    
+    def _trickle_down(node):
+        branch = node
+        if branch:
+            if branch.left and branch.right is None:
+                if branch.left.value < branch.value:
+                    Heap.switch(branch, branch.left)
+            branch = branch.left
+            elif branch.left and branch.right:
+                minimum = min(branch.left.value, branch.right.value)
+                if minimum == branch.left.value:
+                    if minimum < branch.value:
+                        Heap.switch(branch, branch.left)
+                    branch = branch.left
+                 else:
+                    if minimum > branch.value:
+                        Heap.switch(branch, branch.right)
+                    branch = branch.right
+                    
+            else: 
+                return
+            return Heap._trickle_down(branch)
