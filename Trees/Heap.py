@@ -18,7 +18,7 @@ class Heap(BinaryTree):
         then each element of xs needs to be inserted into the Heap.
         '''
         self.root = None
-        for i in xs:
+        if xs:
             self.insert_list(xs)
     
     def __repr__(self):
