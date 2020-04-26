@@ -85,9 +85,11 @@ class Heap(BinaryTree):
         if node.left is None:
             node1 = Node(value)
             node.left = node1
+        
         elif node.right is None:
             node1 = Node(value)
             node.right = node1
+       
         else:
             leftSize = Heap.size(node.left)
             rightSize = Heap.size(node.right)
@@ -98,8 +100,7 @@ class Heap(BinaryTree):
             node1 = Heap._insert(value,node1)
 
         if node.value > node1.value:
-            arg = node1.value
-            node.value = arg
+            Heap._flip(node.value,node1.value)
         return node
 
     
