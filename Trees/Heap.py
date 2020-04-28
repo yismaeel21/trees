@@ -81,44 +81,27 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
-        if node.left is None:
-            node1 = Node(value)
-            node.left = node1
+        if node is None:
+            return
         
-        elif node.right is None:
-            node1 = Node(value)
-            node.right = node1
+        if node.left and node.right:
+            node.left = Heap._insert(value,node.left)
+            if node.value > node.left.value:
+                return Heap._upHeapBubble(value,node)
+            
+        if node.right is None:
+            node.right = Node(value)
+            if node.value > node.right.value:
+                return Heap._upHeapBubble(value,node)
        
-        else:
-            leftSize = Heap.size(node.left)
-            rightSize = Heap.size(node.right)
-            if leftSize <= rightSize: 
-                node1 = node.left  
-            else: 
-                node1 = node.right
-            node1 = Heap._insert(value,node1)
-
-        if node.value > node1.value:
-            Heap._flip(node.value,node1.value)
+        elif node.left is None:
+            node.left = Node(value)
+            if node.value > node.left.value:
+                return Heap._upHeapBubble(value,node)
+       
         return node
 
-    
-    @staticmethod
-    def size(node):
-        if node is None:
-            return 0
-        ourStack = []
-        ourStack.append(node)
-        size = 1
-        while ourStack:
-            node = ourStack.pop()
-            if node.left:
-                size +=1
-                ourStack.append(node.left)
-            if node.right:
-                size += 1
-                ourStack.append(node.right)
-        return size
+ 
 
                
     def insert_list(self, xs):
@@ -141,12 +124,8 @@ class Heap(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-        if self.root:
-            return Heap._find_smallest(self.root)
-        
-    @staticmethod
-    def _find_smallest(node):
-        return node.value
+        if Heap._is_heap_satisfied(self):
+            return self.root.value
         
 
     def remove_min(self):
