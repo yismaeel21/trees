@@ -153,12 +153,38 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
-    
+        if self.root is None:
+            return None
+        elif self.root.left is None and self.root.right is None:
+            self.root = None
+        else:
+            if Heap._remove(self.root) == Heap._farRight(self.root):
+                return
+            else:
+                self.root.value = Heap._farRight(self.root)
+            if not Heap._is_heap_satisfied(self.root):
+                return Heap._trickle_down(self.root)
+            
+            
     @staticmethod
     def _flip(node1,node2):
         arg = node2.value
         node2.value = node1.value
         node1.value = arg
+    
+    @staticmethod
+    def _remove(node):
+        if node is None:
+            return
+        elif node.left:
+            node.left = Heap._remove(node.left)
+        elif node.right:
+            node.right = Heap._remove(node.right)
+        else:
+            if node.left and node.right is None:
+                return None
+        
+        return node
     
     
     @staticmethod
@@ -180,3 +206,11 @@ class Heap(BinaryTree):
                 else:
                     Heap._flip(node.value, node.left.value)
                     return Heap._downHeapBubble(node, node.left.value)
+    @staticmethod
+    def _farRight(node):
+        if node.left is None and node.right is None:
+            return Node.value
+        elif node.left:
+            return Heap._farRight(node.left)
+        else:
+            return Heap._farRight(node.right)
