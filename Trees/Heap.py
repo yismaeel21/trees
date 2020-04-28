@@ -193,7 +193,7 @@ class Heap(BinaryTree):
     @staticmethod
     def _downHeapBubble(node,value):
         if Heap._is_heap_satisfied(node):
-            return
+            return node
         else:
             if node.left is None and node.right is None:
                 return node
@@ -209,6 +209,24 @@ class Heap(BinaryTree):
                 else:
                     Heap._flip(node.value, node.left.value)
                     return Heap._downHeapBubble(node, node.left.value)
+    
+    @staticmethod
+    def _upHeapBubble(node,value):
+        leftVal = node.left.value
+        rightVal = node.right.value
+        if Heap._is_heap_satified(node):
+            return node
+        if node.right and rightVal > node.value:
+            node.right = Heap._upHeapBubble(node.right, value)
+        if node.left and leftVal > node.value:
+            node.right = Heap._upHeapBubble(node.left, value)
+        if node.left:
+            if leftVal == value:
+                Heap._flip(node.value, node.left.value)
+        if node.right:
+            if rightVal == value:
+                heap._flip(node.value, node.right.value)
+        return node
     @staticmethod
     def _farRight(node):
         if node.left is None and node.right is None:
@@ -217,3 +235,4 @@ class Heap(BinaryTree):
             return Heap._farRight(node.left)
         else:
             return Heap._farRight(node.right)
+    
