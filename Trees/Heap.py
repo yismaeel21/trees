@@ -19,8 +19,7 @@ class Heap(BinaryTree):
         '''
         super().__init__()
         if xs:
-            for elem in xs:
-                self.insert(elem)
+            self.insert_list(xs)
     
     def __repr__(self):
         '''
@@ -142,8 +141,12 @@ class Heap(BinaryTree):
         Create a recursive staticmethod helper function,
         similar to how the insert and find functions have recursive helpers.
         '''
-        if Heap.is_heap_satisfied(self):
-            return self.root.value
+        if self.root:
+            return Heap._find_smallest(self.root)
+        
+    @staticmethod
+    def _find_smallest(node):
+        return node.value
         
 
     def remove_min(self):
@@ -181,7 +184,7 @@ class Heap(BinaryTree):
         elif node.right:
             node.right = Heap._remove(node.right)
         else:
-            if node.left and node.right is None:
+            if node.left is None and node.right is None:
                 return None
         
         return node
