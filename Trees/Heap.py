@@ -19,8 +19,7 @@ class Heap(BinaryTree):
         '''
         super().__init__()
         if xs:
-            for elem in xs:
-                self.insert_list(elem)
+            self.insert_list(xs)
     
     def __repr__(self):
         '''
@@ -77,7 +76,7 @@ class Heap(BinaryTree):
 
 
     @staticmethod
-    def _insert(value, node):
+    def _insert(node, value):
         '''
         FIXME:
         Implement this function.
@@ -135,12 +134,12 @@ class Heap(BinaryTree):
         elif self.root.left is None and self.root.right is None:
             self.root = None
         else:
-            right = Heap._findRight(self.root)
+            rightMost = Heap._findRight(self.root)
             self.root = Heap._remove(self.root)
-            if right == self.root.value:
+            if rightMost == self.root.value:
                 return
             else:
-                self.root.value = right
+                self.root.value = rightMost
 
             if Heap._is_heap_satisfied(self.root) == False:
                 return Heap._downHeapBubble(self.root)
@@ -201,7 +200,7 @@ class Heap(BinaryTree):
         return node
     @staticmethod
     def _findRight(node):
-        if (node.left and node.right) is None:
+        if node.left is None and node.right is None:
             return node.value
         elif node.right:
             return Heap._findRight(node.right)
