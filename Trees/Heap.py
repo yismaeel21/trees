@@ -157,25 +157,24 @@ class Heap(BinaryTree):
                 return None
         return node
     
-    
-    @staticmethod
-    def _flip(node1,node2):
-        arg = node2.value
-        node2.value = node1.value
-        node1.value = arg
-    
-    
+
     @staticmethod
     def _downHeapBubble(node):
         if node.left is None and node.right is None:
             return node
         if node.left and (node.right is None or node.left.value <= node.right.value):
             if node.left.value < node.value:
-                Heap._flip(node.value,node.left.value)
+                temp1 = node.value
+                temp2 = node.left.value
+                node.value = temp2
+                node.left.value = temp1
             node.left = Heap._downHeapBubble(node.left)
         elif node.right and (node.left is None or node.right.value <= node.left.value):
             if node.right.value < node.value:
-                Hea._flip(node.value,node.right.value)
+                temp1 = node.value
+                temp2 = node.right.value
+                node.value = temp2
+                node.right.value = temp1
             node.right = Heap._downHeapBubble(node.right)
             
         return node
@@ -192,10 +191,16 @@ class Heap(BinaryTree):
             node.right = Heap._upHeapBubble(node.right, value)
         if node.left:
             if node.left.value == value:
-                Heap._flip(node.left.value,node.value)
+                temp1 = node.value
+                temp2 = node.left.value
+                node.value = temp2
+                node.left.value = temp1
         if node.right:
             if node.right == value:
-                Heap._flip(node.right.value, node.value)
+                temp1 = node.value
+                temp2 = node.right.value
+                node.value = temp2
+                node.right.value = temp1
                 
         return node
     @staticmethod
