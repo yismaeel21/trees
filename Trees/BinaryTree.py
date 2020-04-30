@@ -3,35 +3,7 @@ This file implements the Node and BinaryTree classes.
 These two classes are the building blocks for the BST, AVLTree, and Heap data structures.
 It is crucial to get these implemented correctly in order to be able to implement the other data structures.
 '''
-class Stack(object):
-    def __init__(self):
-        self.items = []
 
-    def __len__(self):
-        return self.size()
-     
-    def size(self):
-        return len(self.items)
-
-    def push(self, item):
-        self.items.append(item)
-
-    def pop(self):  
-        if not self.is_empty():
-            return self.items.pop()
-
-    def peek(self):
-        if not self.is_empty():
-            return self.items[-1]
-
-    def is_empty(self):
-        return len(self.items) == 0
-
-    def __str__(self):
-        s = ""
-        for i in range(len(self.items)):
-            s += str(self.items[i].value) + "-"
-        return s
 class Node():
     '''
     You do not have to implement anything within this class.
@@ -104,17 +76,21 @@ class BinaryTree():
 
     def preorder_print(self, start, traversal):
         '''
+        Root -> Left -> Right
         FIXME: 
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
         if start:
-            traversal += (str(start.value) + "-")
+            traversal += (str(start.value)+ "-")
             traversal = self.preorder_print(start.left, traversal)
             traversal = self.preorder_print(start.right, traversal)
         return traversal
+    
+
     def inorder_print(self, start, traversal):
         '''
+        Left -> Root -> Right
         FIXME: 
         Implement this function.
         The lecture notes videos provide the exact code you need.
@@ -124,19 +100,21 @@ class BinaryTree():
             traversal += (str(start.value) + "-")
             traversal = self.inorder_print(start.right, traversal)
         return traversal
-        
+
     def postorder_print(self, start, traversal):
         '''
+        Left -> Right -> Root
+
         FIXME: 
         Implement this function.
         The lecture notes videos provide the exact code you need.
         '''
+
         if start:
             traversal = self.postorder_print(start.left, traversal)
             traversal = self.postorder_print(start.right, traversal)
             traversal += (str(start.value) + "-")
         return traversal
-
 
     def to_list(self, traversal_type):
         '''
@@ -171,6 +149,7 @@ class BinaryTree():
             traversal = self.preorder(start.left, traversal)
             traversal = self.preorder(start.right, traversal)
         return traversal
+
     def inorder(self, start, traversal):
         '''
         FIXME:
@@ -181,6 +160,7 @@ class BinaryTree():
             traversal.append(start.value)
             traversal = self.inorder(start.right, traversal)
         return traversal
+
     def postorder(self, start, traversal):
         '''
         FIXME:
@@ -191,6 +171,7 @@ class BinaryTree():
             traversal = self.postorder(start.right, traversal)
             traversal.append(start.value)
         return traversal
+
     def __len__(self):
         '''
         The lecture notes videos provide a recursive and an iterative version of a "size" function
@@ -207,32 +188,36 @@ class BinaryTree():
         Implement this function. 
         The lecture notes videos provide the exact code you need.
         '''
+
         if self.root is None:
             return 0
 
-        stack = Stack()
-        stack.push(self.root)
+        stack = []
+        stack.append(self.root)
         size = 1
+
         while stack:
             node = stack.pop()
             if node.left:
                 size += 1
-                stack.push(node.left)
+                stack.append(node.left)
             if node.right:
                 size += 1
-                stack.push(node.right)
+                stack.append(node.right)
         return size
-        
+
+
+
     def size_(self, node):
         '''
         FIXME:
         Implement this function.
         The lecture notes videos provide the exact code you need.
-        ''' 
+        '''
         if node is None:
             return 0
         return 1 + self.size_(node.left) + self.size_(node.right)
-    
+
     def height(self):
         return BinaryTree._height(self.root)
 
@@ -254,3 +239,11 @@ class BinaryTree():
         right_height = BinaryTree._height(node.right)
 
         return 1 + max(left_height, right_height)
+
+tree = BinaryTree(1)
+tree.root.left = Node(2)
+tree.root.right = Node(3)
+tree.root.left.left = Node(4)
+tree.root.left.right = Node(5)
+tree.root.right.left = Node(6)
+tree.root.right.right = Node(7)
