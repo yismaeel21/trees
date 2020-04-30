@@ -20,7 +20,7 @@ class Heap(BinaryTree):
         super().__init__()
         if xs:
             for elem in xs:
-                self.insert(elem)
+                self.insert_list(elem)
     
     def __repr__(self):
         '''
@@ -73,7 +73,7 @@ class Heap(BinaryTree):
             self.root = Node(value)
             self.root.descendents = 1
         else:
-            Heap._insert(value, self.root)
+            Heap._insert(self.root, value)
 
 
     @staticmethod
@@ -82,44 +82,22 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if node.left and node.right:
+            node.left = Heap._inseart(node.left,value)
+            if node.value > node.left.value:
+                return Heap._upHeapBubble(node,value)
+
         if node.left is None:
-            node1 = Node(value)
-            node.left = node1
+            node.left = Node(value)
+            if node.value > node.left.value:
+                return Heap._upHeapBubble(node,value)
         elif node.right is None:
-            node1 = Node(value)
-            node.right = node1
-        else:
-            leftSize = Heap.size(node.left)
-            rightSize = Heap.size(node.right)
-            if leftSize <= rightSize: 
-                node1 = node.left  
-            else: 
-                node1 = node.right
-            node1 = Heap._insert(value,node1)
-
-        if node.value > node1.value:
-            arg = node1.value
-            node.value = arg
+            node.right = Node(value)
+            if node.value > node.right.value:
+                return Heap._upHeapBubble(node,value)
+        
         return node
-
     
-    @staticmethod
-    def size(node):
-        if node is None:
-            return 0
-        ourStack = []
-        ourStack.append(node)
-        size = 1
-        while ourStack:
-            node = ourStack.pop()
-            if node.left:
-                size +=1
-                ourStack.append(node.left)
-            if node.right:
-                size += 1
-                ourStack.append(node.right)
-        return size
-
                
     def insert_list(self, xs):
         '''
@@ -128,7 +106,7 @@ class Heap(BinaryTree):
         Implement this function.
         '''
         for elem in xs:
-            self.insert(xs)
+            self.insert(elem)
 
     def find_smallest(self):
         '''
@@ -152,6 +130,34 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if self.root is None:
+            return None
+        elif self.root.left is None and self.root.right is None:
+            self.root = None
+        else:
+            right = Heap._findRight(self.root)
+            self.root = Heap._remove(self.root)
+            if right == self.root.value:
+                return
+            else:
+                self.root.value = right
+
+            if Heap._is_heap_satisfied(self.root) == False:
+                return Heap._downHeapBubble(self.root)
+    
+    @staticmethod
+    def _remove(node):
+        if node is None:
+            return
+        elif node.right:
+            node.right = Heap._remove(node.right)
+        elif node.left:
+            node.left = Heap._remove(node.left)
+        else:
+            if node.right is None and node.left is None:
+                return None
+        return node
+    
     
     @staticmethod
     def _flip(node1,node2):
@@ -161,21 +167,43 @@ class Heap(BinaryTree):
     
     
     @staticmethod
-    def _downHeapBubble(node,value):
-        if Heap._is_heap_satisfied(node):
-            return
-        else:
-            if node.left is None and node.right is None:
-                return node
-            elif node.left is None:
-                if node.right.value >= node.value:
-                    return node
-                else:
-                    Heap._flip(node.right.value, node.value)
-            else:
-                if node.right.value < node.left.value:
-                    Heap._flip(node.value, node.right.value)
-                    return Heap._downHeapBubble(node, node.right.value)
-                else:
-                    Heap._flip(node.value, node.left.value)
-                    return Heap._downHeapBubble(node, node.left.value)
+    def _downHeapBubble(node):
+        if node.left is None and node.right is None:
+            return node
+        if node.left and (node.right is None or node.left.value <= node.right.value):
+            if node.left.value < node.value:
+                Heap._flip(node.value,node.left.value)
+            node.left = Heap._downHeapBubble(node.left)
+        elif node.right and (node.left is None or node.right.value <= node.left.value):
+            if node.right.value < node.value:
+                Hea._flip(node.value,node.right.value)
+            node.right = Heap._downHeapBubble(node.right)
+            
+        return node
+            
+                          
+    @staticmethod
+    def _upHeapBubble(node,value):
+        if Heap._is_heap_satisfied(node) == True:
+            return node
+        
+        if node.left and node.left.value > node.value:
+            node.left = Heap._upHeapBubble(node.left,value)
+        if  node.right and node.right.value > node.value:
+            node.right = Heap._upHeapBubble(node.right, value)
+        if node.left:
+            if node.left.value == value:
+                Heap._flip(node.left.value,node.value)
+        if node.right:
+            if node.right == value:
+                Heap._flip(node.right.value, node.value)
+                
+        return node
+    @staticmethod
+    def _findRight(node):
+        if (node.left and node.right) is None:
+            return node.value
+        elif node.right:
+            return Heap._findRight(node.right)
+        elif node.left:
+            return Heap._findRight(node.left)
