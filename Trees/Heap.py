@@ -83,7 +83,7 @@ class Heap(BinaryTree):
         Implement this function.
         '''
         if node.left and node.right:
-            node.left = Heap._inseart(node.left,value)
+            node.left = Heap._insert(node.left,value)
             if node.value > node.left.value:
                 return Heap._upHeapBubble(node,value)
 
