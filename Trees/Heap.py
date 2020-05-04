@@ -57,12 +57,16 @@ class Heap(BinaryTree):
         The lecture videos have the exact code you need,
         except that their method is an instance method when it should have been a static method.
         '''
-        if node is None or (node.left is None and node.right is None):
+        left = True
+        right = True
+        if node is None:
             return True
-        if node.right is None:
-            return node.value <= node.left.value
-        if node.value <= node.left.value and node.value <= node.right.value:
-            return Heap._is_heap_satisfied(node.left) and Heap._is_heap_satisfied(node.right)
+        if node.left:
+            left = node.value <= node.left.value and Heap._is_heap_satisfied(node.left)
+        if node.right:
+            right = node.value <= node.right.value and Heap._is_heap_satisfied(node.right)
+      
+        return left and right
         
     def insert(self, value):
         '''
