@@ -201,7 +201,7 @@ class Heap(BinaryTree):
                 node.value = temp2
                 node.left.value = temp1
         if node.right:
-            if node.right == value:
+            if node.right.value == value:
                 temp1 = node.value
                 temp2 = node.right.value
                 node.value = temp2
