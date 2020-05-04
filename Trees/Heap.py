@@ -81,11 +81,12 @@ class Heap(BinaryTree):
         FIXME:
         Implement this function.
         '''
+        if node is None:
+            return
         if node.left and node.right:
-            node.left = Heap._insert(node.left,value)
+            node.left = Heap._insert(node.left, value)
             if node.value > node.left.value:
                 return Heap._upHeapBubble(node,value)
-
         if node.left is None:
             node.left = Node(value)
             if node.value > node.left.value:
@@ -94,7 +95,7 @@ class Heap(BinaryTree):
             node.right = Node(value)
             if node.value > node.right.value:
                 return Heap._upHeapBubble(node,value)
-        
+  
         return node
     
                
