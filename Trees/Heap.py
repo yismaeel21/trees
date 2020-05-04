@@ -72,7 +72,7 @@ class Heap(BinaryTree):
             self.root = Node(value)
             self.root.descendents = 1
         else:
-            Heap._insert(self.root, value)
+            self.root = Heap._insert(self.root, value)
 
 
     @staticmethod
